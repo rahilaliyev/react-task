@@ -1,8 +1,17 @@
 import styled, { createGlobalStyle } from "styled-components";
 
+const media = {
+  desktop: `@media(max-width: 1200px)`,
+};
+
 export const Container = styled.div`
   width: 1200px;
   margin: 100px auto;
+
+  ${media.desktop} {
+    width: 100%;
+    padding: 20px;
+  }
 `;
 
 export const SpinnerWrapper = styled.div`
