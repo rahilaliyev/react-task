@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import DetailsPageHeader from "components/DetailsPageHeader";
+import UserDetails from "pages/UserDetails";
+import Home from "pages/Home";
+import { Container, GlobalStyle } from "GlobalStyles";
+import PostDetails from "pages/PostDetails";
+import { SnackbarProvider } from "notistack";
+import { RecoilRoot } from "recoil";
+
+export const api = "https://jsonplaceholder.typicode.com";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <GlobalStyle />
+      <RecoilRoot>
+        <Container>
+          <SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: "right", vertical: "top" }}>
+            <Routes>
+              <Route path="/">
+                <Route index element={<Home />} />
+                <Route path="user" element={<DetailsPageHeader />}>
+                  <Route path=":userID" element={<UserDetails />} />
+                  <Route path=":userID/:postID" element={<PostDetails />} />
+                </Route>
+              </Route>
+            </Routes>
+          </SnackbarProvider>
+        </Container>
+      </RecoilRoot>
+    </Router>
   );
 }
 
